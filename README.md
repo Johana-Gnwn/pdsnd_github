@@ -7,6 +7,8 @@
 
 ### Description
 Let's explore some statistics on the bikeshare customers and usage in 3 US big cities.
+Use this program to find out how bikeshare service has been used Chicago, New York City and Washington.
+Answer the question below to see if you have learned something new with this program!
 
 ### Files used
 Chicago, New York City and Washington bikeshare data is used in this project.
