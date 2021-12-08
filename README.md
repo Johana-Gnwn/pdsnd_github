@@ -11,6 +11,9 @@ Let's explore some statistics on the bikeshare customers and usage in 3 US big c
 ### Files used
 Chicago, New York City and Washington bikeshare data is used in this project.
 
+### Do you know now?
+Have you found out what is the most popular trip in Chicago on Mondays?
+
 ### Credits
 Data and materials are from Udacity Python course.
 
