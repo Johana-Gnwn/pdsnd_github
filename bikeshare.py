@@ -82,11 +82,7 @@ def load_data(city, month, day):
     """
     filename = CITY_DATA[city]
     filedata = pd.read_csv(filename)
-    filedata['Start Time'] = pd.to_datetime(filedata['Start Time'])
-    filedata['Month'] = filedata['Start Time'].dt.month_name()
-    filedata['Day'] = filedata['Start Time'].dt.day_name()
-    filedata['Hour'] = filedata['Start Time'].dt.hour
-    filedata['Trip details'] = filedata['Start Station'] + '-' + filedata['End Station']
+    get_time_details(filedata)
     if month != 'All':
         filtered_month = filedata.loc[filedata['Month']==month]
     else: filtered_month = filedata
@@ -95,6 +91,13 @@ def load_data(city, month, day):
     else: filtered_table = filtered_month
     
     return filtered_table
+
+def get_time_details(filedata):
+    filedata['Start Time'] = pd.to_datetime(filedata['Start Time'])
+    filedata['Month'] = filedata['Start Time'].dt.month_name()
+    filedata['Day'] = filedata['Start Time'].dt.day_name()
+    filedata['Hour'] = filedata['Start Time'].dt.hour
+    filedata['Trip details'] = filedata['Start Station'] + '-' + filedata['End Station']
 
 # def popular_time(df):
 
