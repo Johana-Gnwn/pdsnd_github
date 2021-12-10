@@ -47,10 +47,7 @@ def get_filters():
 
     # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
     day_list = ['all','monday','tuesday','wednesday','thursday','friday','saturday','sunday']
-    input_day_selection = str(input("Do you want to see any particular day? (Y/N)")) #check if user want to check any chosen day
-    while input_day_selection.lower() != "n" and input_day_selection.lower() !="y": #get the correct yes/no from user
-        print("Please type Y for yes and N for no.")
-        input_day_selection = str(input("Do you want to see any particular day? (Y/N)"))
+    input_day_selection = get_input_day()
         
     #get user month selection
     if input_day_selection.lower() == "n":
@@ -69,6 +66,13 @@ def get_filters():
     print('-'*40)
     return input_city.lower(), input_month.title(), input_day.title()
 
+def get_input_day():
+    input_day_selection = str(input("Do you want to see any particular day? (Y/N)")) #check if user want to check any chosen day
+    while input_day_selection.lower() != "n" and input_day_selection.lower() !="y": #get the correct yes/no from user
+        print("Please type Y for yes and N for no.")
+        input_day_selection = str(input("Do you want to see any particular day? (Y/N)"))
+    return input_day_selection
+
 def load_data(city, month, day):
     """
     Loads data for the specified city and filters by month and day if applicable.
@@ -82,11 +86,7 @@ def load_data(city, month, day):
     """
     filename = CITY_DATA[city]
     filedata = pd.read_csv(filename)
-    filedata['Start Time'] = pd.to_datetime(filedata['Start Time'])
-    filedata['Month'] = filedata['Start Time'].dt.month_name()
-    filedata['Day'] = filedata['Start Time'].dt.day_name()
-    filedata['Hour'] = filedata['Start Time'].dt.hour
-    filedata['Trip details'] = filedata['Start Station'] + '-' + filedata['End Station']
+    get_time_details(filedata)
     if month != 'All':
         filtered_month = filedata.loc[filedata['Month']==month]
     else: filtered_month = filedata
@@ -95,6 +95,13 @@ def load_data(city, month, day):
     else: filtered_table = filtered_month
     
     return filtered_table
+
+def get_time_details(filedata):
+    filedata['Start Time'] = pd.to_datetime(filedata['Start Time'])
+    filedata['Month'] = filedata['Start Time'].dt.month_name()
+    filedata['Day'] = filedata['Start Time'].dt.day_name()
+    filedata['Hour'] = filedata['Start Time'].dt.hour
+    filedata['Trip details'] = filedata['Start Station'] + '-' + filedata['End Station']
 
 # def popular_time(df):
 
